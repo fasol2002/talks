@@ -1,0 +1,50 @@
+version: "3"
+services:
+  ollama:
+    image: ollama/ollama:0.1.31
+    ports:
+      - 11434:11434
+    volumes:
+      - ollama_data:/root/.ollama
+    healthcheck:
+      test: ollama list || exit 1
+      interval: 10s
+      timeout: 30s
+      retries: 5
+      start_period: 10s
+#    deploy:
+#      resources:
+#        reservations:
+#          devices:
+#            - driver: nvidia
+#              count: 1
+#              capabilities: [ gpu ]
+  ollama-models-pull:
+    image: curlimages/curl:8.6.0
+    command: >-
+      http://ollama:11434/api/pull -d '{"name": "mistral"}'
+    depends_on:
+      ollama:
+        condition: service_healthy
+  chroma:
+    image: chromadb/chroma
+    ports:
+      - 8010:8000
+    volumes:
+      - chroma_data:/chroma/chroma
+  ollama-tech-talk:
+    image: maven:3.9-sapmachine-21
+    ports:
+      - 8011:8011
+    volumes:
+      - .:/usr/src/mymaven
+      - tech-talk_data:/root/.m2       
+    working_dir: /usr/src/mymaven
+    command: mvn compile exec:java
+    depends_on:
+      ollama:
+        condition: service_healthy
+volumes:
+  ollama_data:
+  chroma_data:
+  tech-talk_data:
