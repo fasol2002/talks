@@ -14,7 +14,7 @@ User: Can you guess Alice's husband age?
 Server: Based on the given information, Bob was born on January 1, 2000. Therefore, Bob is currently 23 years old.
 
 
-#Credits
+# Credits
 
 https://github.com/corentinricou
 https://github.com/lgdd/chatollama
