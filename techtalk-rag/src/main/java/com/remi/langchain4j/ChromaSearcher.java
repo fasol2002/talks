@@ -1,9 +1,9 @@
-package com.remi;
+package com.remi.langchain4j;
 
-import static com.remi.LocalConf.PT;
-import static com.remi.LocalConf.chatModel;
-import static com.remi.LocalConf.embeddingModel;
-import static com.remi.LocalConf.embeddingStore;
+import static com.remi.langchain4j.LocalConf.PT;
+import static com.remi.langchain4j.LocalConf.chatModel;
+import static com.remi.langchain4j.LocalConf.embeddingModel;
+import static com.remi.langchain4j.LocalConf.embeddingStore;
 
 import java.util.List;
 

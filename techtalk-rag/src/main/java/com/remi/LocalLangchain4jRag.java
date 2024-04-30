@@ -2,9 +2,11 @@ package com.remi;
 import java.io.IOException;
 import java.nio.file.Paths;
 
-import com.remi.web.Init;
+import com.remi.langchain4j.ChromaInserter;
+import com.remi.langchain4j.ChromaSearcher;
+import com.remi.web.httpserrver.Init;
 
-public class LocalRag {
+public class LocalLangchain4jRag {
 
 	public static String onNewQuestion(String question) {
 		return ChromaSearcher.smartSearch(question);

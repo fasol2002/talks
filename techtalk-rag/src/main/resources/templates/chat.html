@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+  <head>
+    <title>Simple Retrieval-augmented generation</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <style> 
+	    @keyframes spin { 
+	      0% { transform: rotate(0deg); } 
+	      100% { transform: rotate(360deg); } 
+	    } 
+	 
+	    .spinner { 
+	      display: none; 
+	      width: 50px; 
+	      height: 50px; 
+	      border: 3px solid #3f3f3f; 
+	      border-top-color: #3498db; 
+	      border-radius: 50%; 
+	      animation: spin 2s linear infinite; 
+	    } 
+	  </style>
+  </head>
+
+  <body>
+
+	<script type="text/javascript">
+	
+		function sendMessage() {
+		  let question = document.getElementById('question').value;
+		  let xhr = new XMLHttpRequest();
+		  xhr.open('POST', '/spring/chat', true);
+		  xhr.setRequestHeader('Content-Type', 'text/plain');
+		  xhr.onreadystatechange = function () {
+			  if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+			    location.reload();
+			  }
+		  };
+		  xhr.send(question);
+		  document.getElementById('spinner').style.display = 'inline-block'
+		}
+		
+		function insert() {
+		  let xhr = new XMLHttpRequest();
+		  xhr.open('POST', '/spring/insert', true);
+		  xhr.setRequestHeader('Content-Type', 'text/plain');
+		  xhr.send();		
+		}
+		
+		function cleanUpChat() {
+		  let xhr = new XMLHttpRequest();
+		  xhr.open('POST', '/spring/clearChat', true);
+		  xhr.setRequestHeader('Content-Type', 'text/plain');
+		  xhr.send();		
+		}
+		
+		function cleanUpChroma() {
+		  let xhr = new XMLHttpRequest();
+		  xhr.open('POST', '/spring/clearChroma', true);
+		  xhr.setRequestHeader('Content-Type', 'text/plain');
+		  xhr.send();		
+		}
+		
+		function question(btn) {
+			document.getElementById('question').value = btn.innerText
+		}
+	</script>
+
+
+    <div id='chat' width='600px' th:each="message: ${data}">
+    	<pre th:text="${message.role.toString()} + ' - ' + ${message.content}" width='600px' style='white-space: pre-wrap'/>
+    </div>
+    <div id="spinner" class="spinner"></div>
+    <hr/>
+    <input type='text' id='question' placeholder='Ask a question...'>
+    <button onclick='sendMessage()'>Answer</button>
+    <button onclick='cleanUpChat()'>Clear Chat</button>
+	<hr/>
+	<button onclick='question(this)'>Who are you?</button>
+	<button onclick='question(this)'>How old is Alice's husband ?</button>
+	<button onclick='question(this)'>Sorry I forgot to tell you that we are in 2024</button>
+	<button onclick='question(this)'>What do you know about Giraffe ?</button>
+	<hr/>
+	<button onclick='insert()'>Insert facts to Chroma</button>
+	<button onclick='cleanUpChroma()'>Empty Chroma</button>
+  </body>
+
+</html>

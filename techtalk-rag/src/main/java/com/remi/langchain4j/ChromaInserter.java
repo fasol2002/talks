@@ -1,6 +1,6 @@
-package com.remi;
-import static com.remi.LocalConf.embeddingModel;
-import static com.remi.LocalConf.embeddingStore;
+package com.remi.langchain4j;
+import static com.remi.langchain4j.LocalConf.embeddingModel;
+import static com.remi.langchain4j.LocalConf.embeddingStore;
 
 import java.nio.file.Path;
 import java.util.ArrayList;

@@ -1,13 +1,12 @@
-package com.remi.web;
+package com.remi.web.httpserrver;
 
 import java.io.IOException;
 import java.io.OutputStream;
 
-import com.remi.LocalRag;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
-public class InsertHandler implements HttpHandler {
+public class IndexHandler implements HttpHandler {
 	
 
 	@Override
@@ -16,14 +15,13 @@ public class InsertHandler implements HttpHandler {
 		exchange.getResponseHeaders().set("Content-Type", "text/html");
 		exchange.sendResponseHeaders(200, 0);
 
-		LocalRag.insertToChroma();
-		
 		// Get the output stream from the exchange
 		OutputStream outputStream = exchange.getResponseBody();
 
 		// Write the HTML response with conversation history
 		String response = "<html><head><title>Simple Retrieval-augmented generation</title></head><body>";
-		response += "<h1>Inserted</h1>";
+		response += "<h1>Welcome to the Simple Retrieval-augmented generation chat</h1>";
+		response += "<a href='/chat.html'>Chat</a>";
 		response += "</body></html>";
 		outputStream.write(response.getBytes());
 

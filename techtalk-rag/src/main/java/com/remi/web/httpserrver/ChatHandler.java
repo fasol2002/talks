@@ -1,4 +1,4 @@
-package com.remi.web;
+package com.remi.web.httpserrver;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.util.ArrayList;
 
-import com.remi.LocalRag;
+import com.remi.LocalLangchain4jRag;
 import com.remi.utils.Utils;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
@@ -67,6 +67,6 @@ public class ChatHandler implements HttpHandler {
 	}
 
 	private String processQuestion(String question) {
-		return LocalRag.onNewQuestion(question);
+		return LocalLangchain4jRag.onNewQuestion(question);
 	}
 }

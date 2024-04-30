@@ -1,4 +1,4 @@
-package com.remi;
+package com.remi.langchain4j;
 
 import dev.langchain4j.data.segment.TextSegment;
 import dev.langchain4j.model.chat.ChatLanguageModel;

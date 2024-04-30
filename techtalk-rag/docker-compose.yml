@@ -40,7 +40,7 @@ services:
       - .:/usr/src/mymaven
       - tech-talk_data:/root/.m2       
     working_dir: /usr/src/mymaven
-    command: mvn compile exec:java
+    command: mvn spring-boot:run
     depends_on:
       ollama:
         condition: service_healthy
