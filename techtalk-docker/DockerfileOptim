@@ -1,0 +1,14 @@
+FROM maven:3.9-eclipse-temurin-21-alpine as builder
+
+WORKDIR /usr/src/mymaven
+COPY pom.xml .
+RUN mvn -B -Daether.dependencyCollector.impl=bf -Dmaven.artifact.threads=20 -Dmaven.test.skip=true dependency:resolve-plugins dependency:resolve
+COPY . .
+RUN mvn -B -Dmaven.test.skip=true package
+
+FROM sapmachine:21-jre-ubuntu
+
+RUN mkdir -p /opt/app
+WORKDIR /opt/app
+ENTRYPOINT ["java", "-jar", "app.jar"]
+COPY --from=builder /usr/src/mymaven/target/app.jar app.jar
